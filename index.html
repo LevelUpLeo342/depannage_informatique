@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dépannage informatique – Services à domicile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* ----- Styles généraux ----- */
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #f5f7fb;
+            color: #1f2933;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1, h2, h3 {
+            margin: 0 0 0.5em;
+        }
+
+        p {
+            margin: 0 0 1em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* ----- Header / Hero ----- */
+        header {
+            background: linear-gradient(135deg, #1f4f9b, #2563eb);
+            color: #fff;
+            padding: 24px 0 56px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .top-contact {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .hero-text {
+            flex: 1 1 260px;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            margin-bottom: 0.4em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            max-width: 520px;
+            margin-bottom: 1.2em;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.2em;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background-color: rgba(15, 23, 42, 0.15);
+        }
+
+        .primary-btn {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: 999px;
+            background-color: #fbbf24;
+            color: #111827;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.1s ease;
+        }
+
+        .primary-btn:hover {
+            background-color: #f59e0b;
+            transform: translateY(-1px);
+        }
+
+        .hero-side-box {
+            flex: 1 1 260px;
+            background-color: rgba(15, 23, 42, 0.25);
+            border-radius: 14px;
+            padding: 16px 18px 18px;
+            font-size: 0.9rem;
+        }
+
+        .hero-side-box h3 {
+            font-size: 1rem;
+            margin-bottom: 0.7em;
+        }
+
+        .hero-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 0.5em;
+        }
+
+        .hero-list li {
+            margin-bottom: 4px;
+        }
+
+        .hero-small {
+            font-size: 0.8rem;
+            opacity: 0.85;
+        }
+
+        /* ----- Sections ----- */
+        section {
+            padding: 40px 0;
+        }
+
+        section:nth-of-type(2n) {
+            background-color: #e5e9f5;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.3em;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: #4b5563;
+            margin-bottom: 1.5em;
+        }
+
+        /* ----- Services ----- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 16px 16px 18px;
+            box-shadow: 0 1px 4px rgba(15,23,42,0.08);
+        }
+
+        .service-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.4em;
+        }
+
+        .service-card ul {
+            margin: 0;
+            padding-left: 16px;
+            font-size: 0.9rem;
+        }
+
+        /* ----- Processus ----- */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .step {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 4px rgba(15,23,42,0.07);
+            font-size: 0.9rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background-color: #2563eb;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        /* ----- Pourquoi me choisir ----- */
+        .reasons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            font-size: 0.9rem;
+        }
+
+        .reason {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .reason-icon {
+            font-size: 1rem;
+        }
+
+        /* ----- Formulaire ----- */
+        .form-wrapper {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 800px) {
+            .form-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 18px 18px 20px;
+            box-shadow: 0 1px 6px rgba(15,23,42,0.08);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .field {
+            margin-bottom: 12px;
+            flex: 1 1 160px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            padding: 8px 9px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.1s ease, box-shadow 0.1s ease;
+            background-color: #f9fafb;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+            background-color: #fff;
+        }
+
+        .field textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        .submit-row {
+            margin-top: 10px;
+        }
+
+        .secondary-text {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 6px;
+        }
+
+        .info-box {
+            font-size: 0.9rem;
+        }
+
+        .info-box h3 {
+            font-size: 1rem;
+            margin-bottom: 0.6em;
+        }
+
+        .info-line {
+            margin-bottom: 0.35em;
+        }
+
+        .info-label {
+            font-weight: 600;
+        }
+
+        /* ----- Footer ----- */
+        footer {
+            padding: 18px 0 20px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="top-bar">
+            <div class="logo">Dépannage informatique</div>
+            <div class="top-contact">
+                <!-- Remplace par tes vraies infos -->
+                Contact rapide : <strong>votre.email@example.com</strong>
+            </div>
+        </div>
+
+        <div class="hero">
+            <div class="hero-text">
+                <h1 class="hero-title">Dépannage informatique à domicile et à distance</h1>
+                <p class="hero-subtitle">
+                    Votre PC est lent, infecté, ou plante en boucle  
+                    Je répare, mets à jour, nettoie et optimise votre ordinateur, sans jargon compliqué.
+                </p>
+                <div class="hero-badges">
+                    <span class="badge">Réparation</span>
+                    <span class="badge">Mises à jour</span>
+                    <span class="badge">Suppression de virus</span>
+                    <span class="badge">Optimisation</span>
+                </div>
+                <a href="#commande">
+                    <button class="primary-btn">Demander une intervention</button>
+                </a>
+            </div>
+
+            <div class="hero-side-box">
+                <h3>Intervention simple, en quatre étapes</h3>
+                <ul class="hero-list">
+                    <li>1. Vous décrivez votre problème</li>
+                    <li>2. Je vous réponds avec une première estimation</li>
+                    <li>3. Intervention à distance ou à domicile</li>
+                    <li>4. Paiement une fois le travail terminé</li>
+                </ul>
+                <p class="hero-small">
+                    Tarifs clairs, aucune surprise. Explications compréhensibles, même si vous “n’aimez pas l’informatique”.
+                </p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="services">
+    <div class="container">
+        <h2 class="section-title">Services proposés</h2>
+        <p class="section-subtitle">
+            Je prends en charge la plupart des problèmes courants sur les ordinateurs sous Windows.
+        </p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Réparation d’ordinateur</h3>
+                <ul>
+                    <li>PC très lent ou qui freeze</li>
+                    <li>Erreurs au démarrage</li>
+                    <li>Écrans bleus / plantages</li>
+                    <li>Problèmes de logiciels qui ne s’ouvrent plus</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>Mise à jour et optimisation</h3>
+                <ul>
+                    <li>Mise à jour de Windows</li>
+                    <li>Mise à jour de pilotes et logiciels</li>
+                    <li>Nettoyage des programmes inutiles</li>
+                    <li>Accélération générale de la machine</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>Suppression de virus et malware</h3>
+                <ul>
+                    <li>Suppression de virus, pubs et logiciels malveillants</li>
+                    <li>Nettoyage approfondi du système</li>
+                    <li>Installation d’outils de protection</li>
+                    <li>Conseils pour éviter les futures infections</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h3>Installation et configuration</h3>
+                <ul>
+                    <li>Installation de logiciels utiles</li>
+                    <li>Installation d’imprimantes, périphériques, etc.</li>
+                    <li>Création de comptes et réglages de base</li>
+                    <li>Conseils personnalisés selon votre usage</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="comment-ca-marche">
+    <div class="container">
+        <h2 class="section-title">Comment ça se passe</h2>
+        <p class="section-subtitle">
+            Un fonctionnement simple et transparent, pour que vous sachiez toujours ce qui se passe.
+        </p>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-title">Vous décrivez le problème</div>
+                <p>Vous remplissez le formulaire de demande d’intervention avec quelques détails sur ce qui ne va pas.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-title">Je vous réponds rapidement</div>
+                <p>Je reviens vers vous dans les plus brefs délais avec une première estimation et des questions si besoin.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Intervention</div>
+                <p>Selon le cas : prise en main à distance ou déplacement à domicile (si proposé dans votre zone).</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-title">Vous payez après le travail</div>
+                <p>Le paiement se fait uniquement une fois l’intervention terminée et expliquée clairement.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="pourquoi-moi">
+    <div class="container">
+        <h2 class="section-title">Pourquoi faire appel à moi</h2>
+        <p class="section-subtitle">
+            L’objectif est de réparer votre ordinateur, pas de vous perdre dans des explications techniques.
+        </p>
+
+        <div class="reasons">
+            <div class="reason">
+                <div class="reason-icon">✔️</div>
+                <div>
+                    <strong>Explications simples :</strong> je traduis l’informatique en français normal, sans mots compliqués.
+                </div>
+            </div>
+
+            <div class="reason">
+                <div class="reason-icon">✔️</div>
+                <div>
+                    <strong>Tarifs clairs :</strong> vous savez à l’avance ce qui est prévu avant toute intervention.
+                </div>
+            </div>
+
+            <div class="reason">
+                <div class="reason-icon">✔️</div>
+                <div>
+                    <strong>Travail propre :</strong> je fais des sauvegardes quand c’est nécessaire et j’évite les manipulations risquées.
+                </div>
+            </div>
+
+            <div class="reason">
+                <div class="reason-icon">✔️</div>
+                <div>
+                    <strong>Accompagnement :</strong> à la fin, vous savez ce qui a été fait et comment éviter que ça recommence.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="commande">
+    <div class="container">
+        <h2 class="section-title">Demander une intervention</h2>
+        <p class="section-subtitle">
+            Remplissez ce formulaire pour m’expliquer votre problème. Je vous répondrai dès que possible.
+        </p>
+
+        <div class="form-wrapper">
+            <form action="mailto:votre.email@example.com" method="post" enctype="text/plain">
+                <div class="form-row">
+                    <div class="field">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="Nom" placeholder="Votre nom" required>
+                    </div>
+                    <div class="field">
+                        <label for="email">Adresse email</label>
+                        <input type="email" id="email" name="Email" placeholder="vous@example.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="field">
+                        <label for="telephone">Téléphone (facultatif)</label>
+                        <input type="tel" id="telephone" name="Téléphone" placeholder="06 00 00 00 00">
+                    </div>
+                    <div class="field">
+                        <label for="type-probleme">Type de problème</label>
+                        <select id="type-probleme" name="Type de problème">
+                            <option value="PC-lent">PC très lent</option>
+                            <option value="virus">Virus / pubs / fenêtres bizarres</option>
+                            <option value="demarrage">Problème au démarrage</option>
+                            <option value="mise-a-jour">Mises à jour / optimisation</option>
+                            <option value="installation">Installation de logiciel / matériel</option>
+                            <option value="autre">Autre (à préciser)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="details">Description du problème</label>
+                    <textarea id="details" name="Description"
+                              placeholder="Expliquez en quelques lignes ce qui se passe, depuis quand, et sur quel type de PC."></textarea>
+                    <div class="form-hint">
+                        Plus vous donnez de détails, plus je peux vous répondre précisément.
+                    </div>
+                </div>
+
+                <div class="submit-row">
+                    <button class="primary-btn" type="submit">Envoyer la demande</button>
+                    <div class="secondary-text">
+                        Vous ne serez pas facturé avant que nous ayons échangé et convenu d’une intervention.
+                    </div>
+                </div>
+            </form>
+
+            <div class="info-box">
+                <h3>Informations pratiques</h3>
+                <p class="info-line">
+                    <span class="info-label">Zone d’intervention :</span> à personnaliser (par exemple : Pontault-Combault et alentours).
+                </p>
+                <p class="info-line">
+                    <span class="info-label">Horaires :</span> à définir (ex : du lundi au samedi, sur rendez-vous).
+                </p>
+                <p class="info-line">
+                    <span class="info-label">Type d’intervention :</span> à distance (prise en main à distance) ou à domicile selon le cas.
+                </p>
+                <p class="info-line">
+                    <span class="info-label">Paiement :</span> à définir (espèces, virement, etc., après intervention).
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        © <!-- année --> Dépannage informatique – Tous droits réservés.
+    </div>
+</footer>
+
+</body>
+</html>
