@@ -1356,6 +1356,40 @@
 <footer>
     © Pontault Informatique – Dépannage & assistance. Tous droits réservés.
 </footer>
+<!-- EMAILJS AUTO-RESPONSE -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+emailjs.init("XAgyt_PC_8avmedJJ"); // PUBLIC KEY
+
+document.addEventListener("submit", function(e) {
+    const form = e.target;
+
+    // On récupère l'email du client
+    const email = form.querySelector("input[name='Email']")?.value;
+
+    // On récupère le ticket généré
+    const ticket = form.querySelector("input[name='Ticket']")?.value;
+
+    // On récupère le type d'intervention (Domicile / Sur place)
+    const type = form.querySelector("input[name='Type']")?.value;
+
+    // Si un email existe, on envoie l'auto-réponse
+    if (email && ticket) {
+        emailjs.send("service_szx9nn3", "template_oy3i68l", {
+            user_email: email,
+            ticket: ticket,
+            type: type
+        }).then(
+            function() {
+                console.log("Email envoyé au client");
+            },
+            function(error) {
+                console.error("Erreur EmailJS :", error);
+            }
+        );
+    }
+});
+</script>
 
 </body>
 </html>
