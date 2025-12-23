@@ -62,8 +62,6 @@
             flex-wrap: wrap;
         }
         .choice-btn {
-            background-color: #2563eb;
-            color: white;
             padding: 20px 40px;
             border-radius: 12px;
             font-size: 1.3rem;
@@ -71,7 +69,10 @@
             cursor: pointer;
             border: none;
             width: 260px;
+            color: white;
         }
+        .domicile-btn { background-color: #dc2626; }
+        .surplace-btn { background-color: #16a34a; }
 
         /* FORMULAIRE */
         form {
@@ -84,10 +85,11 @@
         }
         .field { margin-bottom: 12px; }
         .field label { font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; }
-        .field input {
+        .field input, .field select, .field textarea {
             width: 100%; padding: 10px; border-radius: 8px;
             border: 1px solid #cbd5e1; background-color: #f9fafb;
         }
+        textarea { min-height: 90px; resize: vertical; }
 
         footer {
             padding: 18px 0; font-size: 0.8rem;
@@ -104,6 +106,17 @@
 
             document.getElementById(page).style.display = "block";
             window.scrollTo(0, 0);
+        }
+
+        function checkCategory(select, otherFieldId) {
+            const otherField = document.getElementById(otherFieldId);
+            if (select.value === "Autre") {
+                otherField.style.display = "block";
+                otherField.querySelector("input").required = true;
+            } else {
+                otherField.style.display = "none";
+                otherField.querySelector("input").required = false;
+            }
         }
     </script>
 </head>
@@ -135,7 +148,40 @@
 <section id="home">
     <div class="container">
         <h2>Services proposés</h2>
-        <p>Réparation, optimisation, installation, virus, mises à jour…</p>
+        <ul>
+            <li>Réparation</li>
+            <li>Mises à jour</li>
+            <li>Suppression de virus</li>
+            <li>Optimisation</li>
+            <li>Installation</li>
+        </ul>
+
+        <h2>Pourquoi me choisir ?</h2>
+        <ul>
+            <li>Prix très bas</li>
+            <li>Intervention rapide</li>
+            <li>Local : Pontault-Combault</li>
+            <li>Fiable et professionnel</li>
+            <li>Disponible en soirée et week-end</li>
+        </ul>
+
+        <h2>Horaires</h2>
+        <ul>
+            <li>Lundi : 17h45 – 20h</li>
+            <li>Mardi : 17h45 – 20h</li>
+            <li>Mercredi : 12h45 – 20h</li>
+            <li>Jeudi : 17h45 – 20h</li>
+            <li>Vendredi : 17h45 – 20h</li>
+            <li>Samedi : 10h – 17h</li>
+            <li>Dimanche : 10h – 17h</li>
+        </ul>
+
+        <h2>Tarifs</h2>
+        <ul>
+            <li>Mises à jour : 5€</li>
+            <li>Optimisation / Nettoyage : 10€</li>
+            <li>Suppression de virus : 12,50€</li>
+        </ul>
     </div>
 </section>
 
@@ -144,8 +190,8 @@
     <div class="choice-wrapper">
         <h2>Type d’intervention</h2>
         <div class="choice-buttons">
-            <button class="choice-btn" onclick="showPage('form-domicile')">Domicile</button>
-            <button class="choice-btn" onclick="showPage('form-surplace')">Sur place</button>
+            <button class="choice-btn domicile-btn" onclick="showPage('form-domicile')">Domicile</button>
+            <button class="choice-btn surplace-btn" onclick="showPage('form-surplace')">Sur place</button>
         </div>
     </div>
 </section>
@@ -160,27 +206,50 @@
 
             <div class="field">
                 <label>Nom</label>
-                <input type="text" name="Nom" required>
+                <input type="text" name="Nom">
             </div>
 
             <div class="field">
                 <label>Prénom</label>
-                <input type="text" name="Prénom" required>
+                <input type="text" name="Prénom">
             </div>
 
             <div class="field">
-                <label>Téléphone</label>
+                <label>Téléphone *</label>
                 <input type="tel" name="Téléphone" required>
             </div>
 
             <div class="field">
-                <label>Email</label>
+                <label>Email *</label>
                 <input type="email" name="Email" required>
             </div>
 
             <div class="field">
-                <label>Adresse</label>
+                <label>Adresse *</label>
                 <input type="text" name="Adresse" required>
+            </div>
+
+            <div class="field">
+                <label>Catégorie *</label>
+                <select name="Catégorie" required onchange="checkCategory(this, 'autre-domicile')">
+                    <option value="">Sélectionnez…</option>
+                    <option>Mise à jour</option>
+                    <option>Bugs</option>
+                    <option>Virus</option>
+                    <option>Réparation</option>
+                    <option>Optimisation</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </div>
+
+            <div class="field" id="autre-domicile" style="display:none;">
+                <label>Précisez *</label>
+                <input type="text" name="Autre_domicile">
+            </div>
+
+            <div class="field">
+                <label>Détails *</label>
+                <textarea name="Détails" required></textarea>
             </div>
 
             <button class="primary-btn" type="submit">Envoyer</button>
@@ -198,27 +267,45 @@
 
             <div class="field">
                 <label>Nom</label>
-                <input type="text" name="Nom" required>
+                <input type="text" name="Nom">
             </div>
 
             <div class="field">
                 <label>Prénom</label>
-                <input type="text" name="Prénom" required>
+                <input type="text" name="Prénom">
             </div>
 
             <div class="field">
-                <label>Téléphone</label>
+                <label>Téléphone *</label>
                 <input type="tel" name="Téléphone" required>
             </div>
 
             <div class="field">
-                <label>Email</label>
+                <label>Email *</label>
                 <input type="email" name="Email" required>
             </div>
 
             <div class="field">
-                <label>Adresse</label>
-                <input type="text" name="Adresse" required>
+                <label>Catégorie *</label>
+                <select name="Catégorie" required onchange="checkCategory(this, 'autre-surplace')">
+                    <option value="">Sélectionnez…</option>
+                    <option>Mise à jour</option>
+                    <option>Bugs</option>
+                    <option>Virus</option>
+                    <option>Réparation</option>
+                    <option>Optimisation</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </div>
+
+            <div class="field" id="autre-surplace" style="display:none;">
+                <label>Précisez *</label>
+                <input type="text" name="Autre_surplace">
+            </div>
+
+            <div class="field">
+                <label>Détails *</label>
+                <textarea name="Détails" required></textarea>
             </div>
 
             <button class="primary-btn" type="submit">Envoyer</button>
