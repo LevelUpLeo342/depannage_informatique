@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Dépannage informatique – Services à domicile</title>
+    <title>Dépannage informatique – Pontault-Combault</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
@@ -35,85 +35,77 @@
         .hero-title { font-size: 2rem; margin-bottom: 0.4em; }
         .hero-subtitle { font-size: 1.05rem; max-width: 520px; margin-bottom: 1.2em; }
 
-        .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.2em; }
-        .badge {
-            font-size: 0.8rem; padding: 6px 10px; border-radius: 999px;
-            background-color: rgba(15, 23, 42, 0.15);
-        }
-
         .primary-btn {
-            padding: 12px 22px; border-radius: 999px;
-            background-color: #fbbf24; color: #111827;
-            font-weight: 600; cursor: pointer;
+            padding: 14px 26px;
+            border-radius: 999px;
+            background-color: #fbbf24;
+            color: #111827;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1rem;
+            border: none;
         }
 
         section { padding: 40px 0; }
         section:nth-of-type(2n) { background-color: #e5e9f5; }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
+        /* PAGE 2 : choix domicile / sur place */
+        .choice-wrapper {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .choice-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .choice-btn {
+            background-color: #2563eb;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            width: 260px;
         }
 
-        .service-card {
-            background-color: #fff; border-radius: 12px;
-            padding: 16px; box-shadow: 0 1px 4px rgba(15,23,42,0.08);
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-        }
-
-        .step {
-            background-color: #fff; border-radius: 12px;
-            padding: 16px; box-shadow: 0 1px 4px rgba(15,23,42,0.07);
-        }
-
-        .step-number {
-            width: 26px; height: 26px; border-radius: 999px;
-            background-color: #2563eb; color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 8px;
-        }
-
-        .reasons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
-        }
-
-        .reason { display: flex; gap: 8px; }
-        .reason-icon { font-size: 1rem; }
-
-        .form-wrapper {
-            display: grid;
-            grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
-            gap: 24px;
-        }
-
+        /* FORMULAIRE */
         form {
-            background-color: #fff; border-radius: 12px;
-            padding: 18px; box-shadow: 0 1px 6px rgba(15,23,42,0.08);
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 1px 6px rgba(15,23,42,0.08);
+            max-width: 500px;
+            margin: 0 auto;
         }
-
         .field { margin-bottom: 12px; }
         .field label { font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; }
-
-        .field input, .field select, .field textarea {
-            width: 100%; padding: 8px; border-radius: 8px;
+        .field input {
+            width: 100%; padding: 10px; border-radius: 8px;
             border: 1px solid #cbd5e1; background-color: #f9fafb;
         }
-
-        textarea { min-height: 90px; resize: vertical; }
 
         footer {
             padding: 18px 0; font-size: 0.8rem;
             color: #6b7280; text-align: center;
         }
     </style>
+
+    <script>
+        function showPage(page) {
+            document.getElementById("home").style.display = "none";
+            document.getElementById("choice").style.display = "none";
+            document.getElementById("form-domicile").style.display = "none";
+            document.getElementById("form-surplace").style.display = "none";
+
+            document.getElementById(page).style.display = "block";
+            window.scrollTo(0, 0);
+        }
+    </script>
 </head>
 <body>
 
@@ -126,111 +118,111 @@
 
         <div class="hero">
             <div>
-                <h1 class="hero-title">Dépannage informatique à domicile et à distance</h1>
+                <h1 class="hero-title">Dépannage informatique à Pontault-Combault</h1>
                 <p class="hero-subtitle">
-                    PC lent, virus, erreurs, plantages… Je répare, nettoie et optimise votre ordinateur.
+                    Réparation, optimisation, suppression de virus, installation, assistance… à domicile ou sur place.
                 </p>
-                <div class="hero-badges">
-                    <span class="badge">Réparation</span>
-                    <span class="badge">Mises à jour</span>
-                    <span class="badge">Suppression de virus</span>
-                    <span class="badge">Optimisation</span>
-                </div>
-                <a href="#commande"><button class="primary-btn">Demander une intervention</button></a>
+
+                <button class="primary-btn" onclick="showPage('choice')">
+                    Demander une intervention
+                </button>
             </div>
         </div>
     </div>
 </header>
 
-<section id="services">
+<!-- PAGE 1 (accueil) -->
+<section id="home">
     <div class="container">
         <h2>Services proposés</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Réparation</h3>
-                <ul>
-                    <li>PC lent</li>
-                    <li>Erreurs système</li>
-                    <li>Plantages / écrans bleus</li>
-                </ul>
-            </div>
+        <p>Réparation, optimisation, installation, virus, mises à jour…</p>
+    </div>
+</section>
 
-            <div class="service-card">
-                <h3>Mises à jour</h3>
-                <ul>
-                    <li>Windows</li>
-                    <li>Pilotes</li>
-                    <li>Logiciels</li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <h3>Suppression de virus</h3>
-                <ul>
-                    <li>Virus</li>
-                    <li>Malware</li>
-                    <li>Pubs</li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <h3>Installation</h3>
-                <ul>
-                    <li>Logiciels</li>
-                    <li>Périphériques</li>
-                </ul>
-            </div>
+<!-- PAGE 2 (choix domicile / sur place) -->
+<section id="choice" style="display:none;">
+    <div class="choice-wrapper">
+        <h2>Type d’intervention</h2>
+        <div class="choice-buttons">
+            <button class="choice-btn" onclick="showPage('form-domicile')">Domicile</button>
+            <button class="choice-btn" onclick="showPage('form-surplace')">Sur place</button>
         </div>
     </div>
 </section>
 
-<section id="commande">
+<!-- PAGE 3A : formulaire domicile -->
+<section id="form-domicile" style="display:none;">
     <div class="container">
-        <h2>Demander une intervention</h2>
+        <h2>Intervention à domicile</h2>
 
-        <div class="form-wrapper">
-            <form action="https://formspree.io/f/xojayeod" method="POST">
-                <div class="field">
-                    <label>Nom</label>
-                    <input type="text" name="Nom" required>
-                </div>
+        <form action="https://formspree.io/f/xojayeod" method="POST">
+            <input type="hidden" name="Type" value="Domicile">
 
-                <div class="field">
-                    <label>Email</label>
-                    <input type="email" name="Email" required>
-                </div>
-
-                <div class="field">
-                    <label>Téléphone</label>
-                    <input type="tel" name="Téléphone">
-                </div>
-
-                <div class="field">
-                    <label>Type de problème</label>
-                    <select name="Type de problème">
-                        <option>PC lent</option>
-                        <option>Virus</option>
-                        <option>Problème au démarrage</option>
-                        <option>Mises à jour</option>
-                        <option>Installation</option>
-                        <option>Autre</option>
-                    </select>
-                </div>
-
-                <div class="field">
-                    <label>Description</label>
-                    <textarea name="Description"></textarea>
-                </div>
-
-                <button class="primary-btn" type="submit">Envoyer</button>
-            </form>
-
-            <div>
-                <h3>Informations</h3>
-                <p>Zone : Pontault-Combault et alentours</p>
-                <p>Contact : levelupleo342@gmail.com</p>
+            <div class="field">
+                <label>Nom</label>
+                <input type="text" name="Nom" required>
             </div>
-        </div>
+
+            <div class="field">
+                <label>Prénom</label>
+                <input type="text" name="Prénom" required>
+            </div>
+
+            <div class="field">
+                <label>Téléphone</label>
+                <input type="tel" name="Téléphone" required>
+            </div>
+
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="Email" required>
+            </div>
+
+            <div class="field">
+                <label>Adresse</label>
+                <input type="text" name="Adresse" required>
+            </div>
+
+            <button class="primary-btn" type="submit">Envoyer</button>
+        </form>
+    </div>
+</section>
+
+<!-- PAGE 3B : formulaire sur place -->
+<section id="form-surplace" style="display:none;">
+    <div class="container">
+        <h2>Intervention sur place</h2>
+
+        <form action="https://formspree.io/f/xojayeod" method="POST">
+            <input type="hidden" name="Type" value="Sur place">
+
+            <div class="field">
+                <label>Nom</label>
+                <input type="text" name="Nom" required>
+            </div>
+
+            <div class="field">
+                <label>Prénom</label>
+                <input type="text" name="Prénom" required>
+            </div>
+
+            <div class="field">
+                <label>Téléphone</label>
+                <input type="tel" name="Téléphone" required>
+            </div>
+
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="Email" required>
+            </div>
+
+            <div class="field">
+                <label>Adresse</label>
+                <input type="text" name="Adresse" required>
+            </div>
+
+            <button class="primary-btn" type="submit">Envoyer</button>
+        </form>
     </div>
 </section>
 
