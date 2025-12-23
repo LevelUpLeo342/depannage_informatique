@@ -67,13 +67,13 @@
             font-size: 0.78rem;
         }
 
-        /* Navigation */
+        /* Navigation + header */
         header {
             padding: 14px 0 36px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.3);
             background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
-            radial-gradient(circle at top right, rgba(236, 72, 153, 0.25), transparent 55%),
-            linear-gradient(to bottom, #020617, #020617);
+                        radial-gradient(circle at top right, rgba(236, 72, 153, 0.25), transparent 55%),
+                        linear-gradient(to bottom, #020617, #020617);
         }
 
         .top-bar {
@@ -491,13 +491,6 @@
             margin-left: 3px;
         }
 
-        .ticket-info {
-            font-size: 0.8rem;
-            color: var(--muted);
-            margin-top: 4px;
-            margin-bottom: 8px;
-        }
-
         .ticket-code {
             color: var(--glitch1);
             font-family: "Courier New", monospace;
@@ -610,7 +603,7 @@
     </style>
 
     <script>
-        // Gère l'affichage des "vues" (sections principales)
+        // Gestion des vues (pages internes)
         function showView(view) {
             const views = ["home", "choice", "form-domicile", "form-surplace", "about", "faq", "reviews"];
             views.forEach(id => {
@@ -618,7 +611,6 @@
                 if (el) el.style.display = (id === view ? "block" : "none");
             });
 
-            // Mise à jour des boutons de navigation (actif / inactif)
             const navButtons = document.querySelectorAll(".nav button[data-view]");
             navButtons.forEach(btn => {
                 if (btn.getAttribute("data-view") === view) {
@@ -631,26 +623,129 @@
             window.scrollTo(0, 0);
         }
 
-        // Génère un numéro de ticket unique et l'injecte dans le formulaire
+        // Ticket automatique
         function prepareTicket(form, type) {
             const now = new Date();
             const base = now.getTime().toString(36).toUpperCase();
             const suffix = Math.floor(Math.random() * 999).toString().padStart(3, "0");
             const ticket = "T-" + type.charAt(0).toUpperCase() + "-" + base + "-" + suffix;
 
-            const hiddenField = form.querySelector("input[name='Ticket']");
-            if (hiddenField) hiddenField.value = ticket;
+            const ticketField = form.querySelector("input[name='Ticket']");
+            if (ticketField) ticketField.value = ticket;
 
             const infoSpan = form.querySelector(".ticket-code");
             if (infoSpan) infoSpan.textContent = ticket;
 
-            return true; // laisse le formulaire se soumettre
+            return true;
         }
 
-        // Affiche / cache le champ "Autre" selon la catégorie
+        // Champ _replyto pour Formspree
+        document.addEventListener("submit", function (e) {
+            const form = e.target;
+            const emailInput = form.querySelector("input[name='Email']");
+            const replyToField = form.querySelector(".replyto-field");
+
+            if (emailInput && replyToField) {
+                replyToField.value = emailInput.value;
+            }
+        });
+
+        // Disponibilité des créneaux (localStorage)
+        function markSlotAsTaken(slot) {
+            let taken = JSON.parse(localStorage.getItem("takenSlots") || "[]");
+            if (slot && !taken.includes(slot)) {
+                taken.push(slot);
+                localStorage.setItem("takenSlots", JSON.stringify(taken));
+            }
+        }
+
+        function loadTakenSlots() {
+            let taken = JSON.parse(localStorage.getItem("takenSlots") || "[]");
+            document.querySelectorAll("select[name='Créneau']").forEach(select => {
+                select.querySelectorAll("option").forEach(opt => {
+                    if (taken.includes(opt.value)) {
+                        opt.disabled = true;
+                        opt.textContent = opt.value + " (indisponible)";
+                    }
+                });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            loadTakenSlots();
+            showView("home");
+            loadReviews();
+        });
+
+        document.addEventListener("submit", function (e) {
+            const form = e.target;
+            const slot = form.querySelector("select[name='Créneau']");
+            if (slot) markSlotAsTaken(slot.value);
+        });
+
+        // Reset secret des créneaux : Ctrl+R
+        document.addEventListener("keydown", function (e) {
+            if (e.ctrlKey && e.key === "R") {
+                localStorage.removeItem("takenSlots");
+                alert("Créneaux réinitialisés");
+                location.reload();
+            }
+        });
+
+        // Système d'avis (localStorage)
+        function loadReviews() {
+            let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+            const container = document.getElementById("reviews-list");
+            if (!container) return;
+
+            container.innerHTML = "";
+            reviews.forEach(r => {
+                const card = document.createElement("div");
+                card.className = "review-card";
+                card.innerHTML = `
+                    <div class="review-name">Utilisateur</div>
+                    <div class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</div>
+                    <p>${r.text}</p>
+                    <div class="review-meta">Avis local</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function addReview() {
+            const stars = parseInt(document.getElementById("review-stars").value);
+            const text = document.getElementById("review-text").value.trim();
+
+            if (!text) {
+                alert("Veuillez écrire un avis.");
+                return;
+            }
+
+            let reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+            reviews.push({ stars, text });
+            localStorage.setItem("reviews", JSON.stringify(reviews));
+
+            document.getElementById("review-text").value = "";
+            loadReviews();
+        }
+
+        // Reset secret des avis : double‑clic sur "Avis clients"
+        document.addEventListener("dblclick", function (e) {
+            if (e.target.textContent && e.target.textContent.includes("Avis clients")) {
+                if (confirm("Réinitialiser tous les avis ?")) {
+                    localStorage.removeItem("reviews");
+                    loadReviews();
+                }
+            }
+        });
+
+        // Catégorie "Autre"
         function checkCategory(select, otherFieldId) {
             const otherField = document.getElementById(otherFieldId);
+            if (!otherField) return;
             const input = otherField.querySelector("input");
+            if (!input) return;
+
             if (select.value === "Autre") {
                 otherField.style.display = "block";
                 input.required = true;
@@ -659,11 +754,6 @@
                 input.required = false;
             }
         }
-
-        // Affiche la vue d'accueil au chargement
-        document.addEventListener("DOMContentLoaded", function () {
-            showView("home");
-        });
     </script>
 </head>
 <body>
@@ -703,10 +793,10 @@
                     <div>Contact direct :</div>
                     <div><strong>levelupleo342@gmail.com</strong></div>
                     <a class="whatsapp-btn"
-                       href="https://wa.me/33000000000"
+                       href="https://wa.me/33667673666"
                        target="_blank" rel="noopener noreferrer">
                         <span class="whatsapp-dot"></span>
-                        WhatsApp (à personnaliser)
+                        WhatsApp
                     </a>
                 </div>
             </div>
@@ -931,6 +1021,7 @@
               onsubmit="return prepareTicket(this, 'Domicile');">
             <input type="hidden" name="Type" value="Domicile">
             <input type="hidden" name="Ticket" value="">
+            <input type="hidden" name="_replyto" class="replyto-field">
 
             <div class="form-sub">
                 Les champs marqués d’une <span class="required">*</span> sont obligatoires.<br>
@@ -1023,6 +1114,7 @@
               onsubmit="return prepareTicket(this, 'Surplace');">
             <input type="hidden" name="Type" value="Sur place">
             <input type="hidden" name="Ticket" value="">
+            <input type="hidden" name="_replyto" class="replyto-field">
 
             <div class="form-sub">
                 Les champs marqués d’une <span class="required">*</span> sont obligatoires.<br>
@@ -1117,7 +1209,6 @@
         </div>
     </div>
 </section>
-
 <!-- À PROPOS -->
 <section id="about" class="view">
     <div class="container">
@@ -1224,48 +1315,40 @@
     </div>
 </section>
 
-<!-- AVIS CLIENTS -->
+<!-- AVIS (avec formulaire + affichage localStorage) -->
 <section id="reviews" class="view">
     <div class="container">
         <h2 class="section-title">Avis clients</h2>
         <p class="section-sub">
-            Quelques exemples d’avis que pourraient laisser les personnes que j’aide.
+            Laissez votre avis et lisez ceux des autres utilisateurs. Les avis sont stockés localement sur cet appareil.
         </p>
 
-        <div class="services-grid">
-            <div class="review-card">
-                <div class="review-name">Céline, Pontault-Combault</div>
-                <div class="review-stars">★★★★★</div>
-                <p>
-                    Mon PC était devenu inutilisable, plein de pubs et de lenteurs. Tout a été nettoyé,
-                    expliqué, et depuis il fonctionne beaucoup mieux. Très clair et patient.
-                </p>
-                <div class="review-meta">Intervention : optimisation + suppression de virus</div>
-            </div>
+        <!-- Formulaire d'avis -->
+        <div class="card" style="margin-bottom:20px;">
+            <h3>Laisser un avis</h3>
 
-            <div class="review-card">
-                <div class="review-name">Karim, Roissy-en-Brie</div>
-                <div class="review-stars">★★★★★</div>
-                <p>
-                    Je ne comprenais rien aux mises à jour, tout plantait. Mises à jour faites, pilotes
-                    installés, et explications simples. Le prix était annoncé dès le début.
-                </p>
-                <div class="review-meta">Intervention : mises à jour + vérifications</div>
-            </div>
+            <label>Note :</label>
+            <select id="review-stars">
+                <option value="5">★★★★★ (5)</option>
+                <option value="4">★★★★☆ (4)</option>
+                <option value="3">★★★☆☆ (3)</option>
+                <option value="2">★★☆☆☆ (2)</option>
+                <option value="1">★☆☆☆☆ (1)</option>
+            </select>
 
-            <div class="review-card">
-                <div class="review-name">Marie, Pontault-Combault</div>
-                <div class="review-stars">★★★★★</div>
-                <p>
-                    Très pratique de pouvoir choisir un créneau en soirée. On voit que c’est pensé pour les
-                    gens qui travaillent la journée. Je recommande.
-                </p>
-                <div class="review-meta">Intervention : optimisation et conseils</div>
-            </div>
+            <label style="margin-top:10px;display:block;">Votre avis :</label>
+            <textarea id="review-text" placeholder="Votre commentaire..." style="width:100%;min-height:80px;"></textarea>
+
+            <button onclick="addReview()" class="primary-btn-form" style="margin-top:10px;">
+                Publier l’avis
+            </button>
         </div>
 
+        <!-- Liste des avis -->
+        <div id="reviews-list" class="services-grid"></div>
+
         <p class="section-sub" style="margin-top:1.5em;">
-            Vous pourrez bientôt laisser vos avis directement ici, pour aider d’autres personnes à se faire une idée.
+            Astuce : un double‑clic sur le titre “Avis clients” permet de réinitialiser tous les avis (pour vous).
         </p>
     </div>
 </section>
