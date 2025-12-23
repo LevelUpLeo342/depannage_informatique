@@ -2,8 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Dépannage informatique – Pontault-Combault</title>
+    <title>Pontault Informatique – Dépannage informatique à Pontault-Combault</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Dépannage informatique à Pontault-Combault : réparation, optimisation, suppression de virus, mises à jour, installation. Interventions à domicile ou sur place, avec des tarifs clairs et bas.">
+    <meta name="robots" content="index, follow">
     <style>
         :root {
             --bg: #050816;
@@ -41,23 +44,46 @@
             padding: 0 16px;
         }
 
+        /* Bannière rapide */
+        .top-banner {
+            background: linear-gradient(90deg, var(--glitch1), var(--glitch2));
+            color: #020617;
+            font-size: 0.85rem;
+            padding: 6px 0;
+        }
+
+        .top-banner-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-banner strong {
+            font-weight: 700;
+        }
+
+        .top-banner span {
+            font-size: 0.78rem;
+        }
+
+        /* Navigation */
         header {
-            padding: 20px 0 50px;
+            padding: 14px 0 36px;
             border-bottom: 1px solid rgba(148, 163, 184, 0.3);
             background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
-                        radial-gradient(circle at top right, rgba(236, 72, 153, 0.25), transparent 55%),
-                        linear-gradient(to bottom, #020617, #020617);
+            radial-gradient(circle at top right, rgba(236, 72, 153, 0.25), transparent 55%),
+            linear-gradient(to bottom, #020617, #020617);
         }
 
         .top-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 32px;
+            margin-bottom: 18px;
             gap: 16px;
         }
 
-        /* LOGO CYBERPUNK ROND */
         .logo-wrap {
             display: flex;
             align-items: center;
@@ -77,6 +103,12 @@
             box-shadow:
                 0 0 18px rgba(56, 189, 248, 0.75),
                 0 0 28px rgba(236, 72, 153, 0.65);
+            animation: logoGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% { box-shadow: 0 0 12px rgba(56, 189, 248, 0.6), 0 0 18px rgba(236, 72, 153, 0.5); }
+            100% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.9), 0 0 30px rgba(236, 72, 153, 0.9); }
         }
 
         .logo-hacker {
@@ -92,11 +124,14 @@
             text-align: center;
             line-height: 1.1;
             text-shadow: 0 0 6px rgba(0, 255, 136, 0.9);
+            overflow: hidden;
         }
 
         .logo-hacker::before {
             content: "101010\n010101\n101010";
             white-space: pre;
+            position: relative;
+            animation: glitchText 1.8s infinite alternate;
         }
 
         .logo-mask {
@@ -105,6 +140,14 @@
             border-radius: 999px;
             border: 1px solid rgba(15, 23, 42, 0.9);
             box-shadow: inset 0 0 10px rgba(15, 23, 42, 0.9);
+        }
+
+        @keyframes glitchText {
+            0%   { transform: translate(0, 0); text-shadow: 0 0 4px rgba(0, 255, 136, 0.8); }
+            25%  { transform: translate(-1px, 0.5px); text-shadow: -1px 0 rgba(56, 189, 248, 0.7); }
+            50%  { transform: translate(1px, -0.5px); text-shadow: 1px 0 rgba(236, 72, 153, 0.7); }
+            75%  { transform: translate(-0.5px, -1px); text-shadow: -1px -1px rgba(0, 255, 136, 0.9); }
+            100% { transform: translate(0.5px, 1px); text-shadow: 0 0 4px rgba(0, 255, 136, 0.9); }
         }
 
         .logo-text-main {
@@ -117,6 +160,12 @@
             color: var(--muted);
         }
 
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
         .top-contact {
             font-size: 0.9rem;
             text-align: right;
@@ -126,12 +175,39 @@
             color: var(--accent);
         }
 
+        .nav {
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .nav button {
+            background: transparent;
+            border: 1px solid rgba(75, 85, 99, 0.8);
+            color: var(--muted);
+            padding: 6px 10px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .nav button:hover {
+            border-color: var(--accent-soft);
+            color: var(--text);
+        }
+
+        .nav button.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
         .hero {
             display: flex;
             flex-wrap: wrap;
             gap: 32px;
             align-items: center;
             justify-content: space-between;
+            margin-top: 10px;
         }
 
         .hero-left {
@@ -184,6 +260,7 @@
             padding: 16px 18px;
             border: 1px solid rgba(148, 163, 184, 0.5);
             box-shadow: 0 18px 55px rgba(15, 23, 42, 0.9);
+            font-size: 0.85rem;
         }
 
         .hero-right h3 {
@@ -192,13 +269,33 @@
         }
 
         .hero-right p {
-            font-size: 0.85rem;
             margin-bottom: 0.4em;
             color: var(--muted);
         }
 
         .hero-right strong {
             color: var(--accent);
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #22c55e;
+            color: #022c22;
+            font-weight: 600;
+        }
+
+        .whatsapp-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 6px rgba(34, 197, 94, 0.9);
         }
 
         section {
@@ -249,6 +346,11 @@
             color: var(--muted);
         }
 
+        .card p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
         .two-columns {
             display: grid;
             grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
@@ -287,11 +389,12 @@
             color: var(--accent);
         }
 
-        /* CHOIX DOMICILE / SUR PLACE */
-        #choice {
+        /* Vues (pages internes) */
+        .view {
             display: none;
         }
 
+        /* Choix domicile / sur place */
         .choice-wrapper {
             text-align: center;
             padding: 20px 0 10px;
@@ -325,12 +428,7 @@
             background: linear-gradient(135deg, #22c55e, var(--success));
         }
 
-        /* FORMULAIRES */
-        #form-domicile,
-        #form-surplace {
-            display: none;
-        }
-
+        /* Formulaires */
         form {
             background: rgba(15, 23, 42, 0.96);
             border-radius: 16px;
@@ -339,11 +437,6 @@
             max-width: 520px;
             margin: 0 auto;
             border: 1px solid rgba(55, 65, 81, 0.9);
-        }
-
-        .form-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.6em;
         }
 
         .form-sub {
@@ -398,6 +491,18 @@
             margin-left: 3px;
         }
 
+        .ticket-info {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 4px;
+            margin-bottom: 8px;
+        }
+
+        .ticket-code {
+            color: var(--glitch1);
+            font-family: "Courier New", monospace;
+        }
+
         .primary-btn-form {
             margin-top: 6px;
             padding: 11px 22px;
@@ -425,48 +530,52 @@
             text-decoration: underline;
         }
 
-        /* MAP SUR PLACE */
-        .map-wrapper {
-            margin-top: 20px;
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-            gap: 16px;
-            align-items: start;
-        }
-
-        .map-card {
-            background: rgba(15, 23, 42, 0.96);
-            border-radius: 16px;
-            padding: 14px;
-            border: 1px solid rgba(55, 65, 81, 0.85);
-        }
-
-        .map-card h3 {
-            font-size: 0.95rem;
-            margin-bottom: 0.4em;
-        }
-
-        .map-card p {
-            font-size: 0.8rem;
+        /* À propos / FAQ / Avis */
+        .about-text p {
+            font-size: 0.9rem;
             color: var(--muted);
         }
 
-        .map-iframe {
-            width: 100%;
-            border: 0;
-            border-radius: 12px;
-            height: 220px;
+        .faq-item {
+            margin-bottom: 14px;
+            border-bottom: 1px dashed rgba(55, 65, 81, 0.9);
+            padding-bottom: 8px;
         }
 
-        .map-btn {
-            margin-top: 10px;
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--glitch1), var(--glitch2));
-            color: #020617;
-            font-size: 0.8rem;
+        .faq-item h3 {
+            font-size: 0.95rem;
+        }
+
+        .faq-item p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .review-card {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 14px;
+            padding: 14px 14px 16px;
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            font-size: 0.85rem;
+            color: var(--muted);
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.9);
+        }
+
+        .review-name {
             font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .review-stars {
+            color: #fbbf24;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .review-meta {
+            font-size: 0.75rem;
+            color: var(--muted);
         }
 
         footer {
@@ -483,8 +592,12 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .top-contact {
-                text-align: left;
+            .top-right {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav {
+                flex-wrap: wrap;
             }
             .hero {
                 flex-direction: column;
@@ -493,23 +606,48 @@
             .two-columns {
                 grid-template-columns: 1fr;
             }
-            .map-wrapper {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 
     <script>
-        function showPage(page) {
-            document.getElementById("home").style.display = "none";
-            document.getElementById("choice").style.display = "none";
-            document.getElementById("form-domicile").style.display = "none";
-            document.getElementById("form-surplace").style.display = "none";
+        // Gère l'affichage des "vues" (sections principales)
+        function showView(view) {
+            const views = ["home", "choice", "form-domicile", "form-surplace", "about", "faq", "reviews"];
+            views.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = (id === view ? "block" : "none");
+            });
 
-            document.getElementById(page).style.display = "block";
+            // Mise à jour des boutons de navigation (actif / inactif)
+            const navButtons = document.querySelectorAll(".nav button[data-view]");
+            navButtons.forEach(btn => {
+                if (btn.getAttribute("data-view") === view) {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
+
             window.scrollTo(0, 0);
         }
 
+        // Génère un numéro de ticket unique et l'injecte dans le formulaire
+        function prepareTicket(form, type) {
+            const now = new Date();
+            const base = now.getTime().toString(36).toUpperCase();
+            const suffix = Math.floor(Math.random() * 999).toString().padStart(3, "0");
+            const ticket = "T-" + type.charAt(0).toUpperCase() + "-" + base + "-" + suffix;
+
+            const hiddenField = form.querySelector("input[name='Ticket']");
+            if (hiddenField) hiddenField.value = ticket;
+
+            const infoSpan = form.querySelector(".ticket-code");
+            if (infoSpan) infoSpan.textContent = ticket;
+
+            return true; // laisse le formulaire se soumettre
+        }
+
+        // Affiche / cache le champ "Autre" selon la catégorie
         function checkCategory(select, otherFieldId) {
             const otherField = document.getElementById(otherFieldId);
             const input = otherField.querySelector("input");
@@ -521,9 +659,25 @@
                 input.required = false;
             }
         }
+
+        // Affiche la vue d'accueil au chargement
+        document.addEventListener("DOMContentLoaded", function () {
+            showView("home");
+        });
     </script>
 </head>
 <body>
+
+<div class="top-banner">
+    <div class="container top-banner-inner">
+        <div>
+            <strong>Intervention rapide à Pontault-Combault</strong>
+        </div>
+        <div>
+            <span>Soirée, mercredi après-midi et week-end – PC lent, virus, bugs, optimisation…</span>
+        </div>
+    </div>
+</div>
 
 <header>
     <div class="container">
@@ -538,9 +692,23 @@
                     <div class="logo-text-sub">Dépannage, optimisation, assistance</div>
                 </div>
             </div>
-            <div class="top-contact">
-                <div>Contact direct :</div>
-                <div><strong>levelupleo342@gmail.com</strong></div>
+            <div class="top-right">
+                <div class="nav">
+                    <button data-view="home" onclick="showView('home')">Accueil</button>
+                    <button data-view="about" onclick="showView('about')">À propos</button>
+                    <button data-view="faq" onclick="showView('faq')">FAQ</button>
+                    <button data-view="reviews" onclick="showView('reviews')">Avis</button>
+                </div>
+                <div class="top-contact">
+                    <div>Contact direct :</div>
+                    <div><strong>levelupleo342@gmail.com</strong></div>
+                    <a class="whatsapp-btn"
+                       href="https://wa.me/33000000000"
+                       target="_blank" rel="noopener noreferrer">
+                        <span class="whatsapp-dot"></span>
+                        WhatsApp (à personnaliser)
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -560,7 +728,7 @@
                     <span class="badge">Installation & nettoyage</span>
                 </div>
 
-                <button class="primary-btn" onclick="showPage('choice')">
+                <button class="primary-btn" onclick="showView('choice')">
                     Demander une intervention
                 </button>
             </div>
@@ -574,13 +742,17 @@
                     Week-end : 10h – 17h
                 </p>
                 <p><strong>Idéal pour :</strong> PC lent, virus, bugs, mises à jour, installation, optimisation.</p>
+                <p style="margin-top:0.6em;">
+                    Après l’envoi du formulaire, vous recevez un numéro de demande
+                    (ticket) pour suivre votre intervention.
+                </p>
             </div>
         </div>
     </div>
 </header>
 
-<!-- PAGE 1 (accueil) -->
-<section id="home">
+<!-- ACCUEIL -->
+<section id="home" class="view">
     <div class="container">
         <div class="two-columns">
             <div>
@@ -638,26 +810,26 @@
                 <div class="why-grid">
                     <div class="card">
                         <h3>Prix très bas</h3>
-                        <p style="font-size:0.85rem;color:var(--muted);">
+                        <p>
                             Des tarifs accessibles, adaptés aux petits budgets, annoncés à l’avance.
                         </p>
                     </div>
                     <div class="card">
                         <h3>Intervention rapide</h3>
-                        <p style="font-size:0.85rem;color:var(--muted);">
+                        <p>
                             Créneaux en soirée, le mercredi après-midi et le week-end.
                         </p>
                     </div>
                     <div class="card">
                         <h3>Local à Pontault</h3>
-                        <p style="font-size:0.85rem;color:var(--muted);">
-                            Je suis basé à Pontault-Combault, je connais bien le secteur.
+                        <p>
+                            Basé à Pontault-Combault, je connais bien le secteur.
                         </p>
                     </div>
                     <div class="card">
                         <h3>Clair & honnête</h3>
-                        <p style="font-size:0.85rem;color:var(--muted);">
-                            Problème expliqué simplement, sans jargon inutile, avec des solutions concrètes.
+                        <p>
+                            Problèmes expliqués simplement, sans jargon inutile, avec des solutions concrètes.
                         </p>
                     </div>
                 </div>
@@ -728,8 +900,8 @@
     </div>
 </section>
 
-<!-- PAGE 2 (choix domicile / sur place) -->
-<section id="choice">
+<!-- CHOIX -->
+<section id="choice" class="view">
     <div class="container">
         <div class="choice-wrapper">
             <h2 class="section-title">Choisissez le type d’intervention</h2>
@@ -737,28 +909,34 @@
                 À domicile : je viens chez vous. Sur place : vous venez au point de rendez-vous.
             </p>
             <div class="choice-buttons">
-                <button class="choice-btn domicile-btn" onclick="showPage('form-domicile')">À domicile</button>
-                <button class="choice-btn surplace-btn" onclick="showPage('form-surplace')">Sur place</button>
+                <button class="choice-btn domicile-btn" onclick="showView('form-domicile')">À domicile</button>
+                <button class="choice-btn surplace-btn" onclick="showView('form-surplace')">Sur place</button>
             </div>
             <div class="back-link" style="margin-top:20px;">
-                <a href="javascript:void(0)" onclick="showPage('home')">← Retour à l’accueil</a>
+                <a href="javascript:void(0)" onclick="showView('home')">← Retour à l’accueil</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- PAGE 3A : formulaire domicile -->
-<section id="form-domicile">
+<!-- FORM DOMICILE -->
+<section id="form-domicile" class="view">
     <div class="container">
         <h2 class="section-title">Demande d’intervention à domicile</h2>
         <p class="section-sub">
             Remplissez ce formulaire, choisissez un créneau, et je vous recontacte pour confirmer.
         </p>
 
-        <form action="https://formspree.io/f/xojayeod" method="POST">
+        <form action="https://formspree.io/f/xojayeod" method="POST"
+              onsubmit="return prepareTicket(this, 'Domicile');">
             <input type="hidden" name="Type" value="Domicile">
+            <input type="hidden" name="Ticket" value="">
 
-            <div class="form-sub">Les champs marqués d’une <span class="required">*</span> sont obligatoires.</div>
+            <div class="form-sub">
+                Les champs marqués d’une <span class="required">*</span> sont obligatoires.<br>
+                Un numéro de demande vous sera attribué automatiquement :
+                <span class="ticket-code">sera généré à l’envoi</span>
+            </div>
 
             <div class="field">
                 <label>Nom</label>
@@ -827,24 +1005,30 @@
             <button class="primary-btn-form" type="submit">Envoyer la demande</button>
 
             <div class="back-link">
-                <a href="javascript:void(0)" onclick="showPage('choice')">← Retour au choix du type d’intervention</a>
+                <a href="javascript:void(0)" onclick="showView('choice')">← Retour au choix du type d’intervention</a>
             </div>
         </form>
     </div>
 </section>
 
-<!-- PAGE 3B : formulaire sur place -->
-<section id="form-surplace">
+<!-- FORM SUR PLACE -->
+<section id="form-surplace" class="view">
     <div class="container">
         <h2 class="section-title">Demande d’intervention sur place</h2>
         <p class="section-sub">
-            Vous venez sur place : l’adresse exacte et l’itinéraire sont indiqués ci-dessous.
+            Vous venez sur place : l’adresse et l’itinéraire sont indiqués ci-dessous.
         </p>
 
-        <form action="https://formspree.io/f/xojayeod" method="POST">
+        <form action="https://formspree.io/f/xojayeod" method="POST"
+              onsubmit="return prepareTicket(this, 'Surplace');">
             <input type="hidden" name="Type" value="Sur place">
+            <input type="hidden" name="Ticket" value="">
 
-            <div class="form-sub">Les champs marqués d’une <span class="required">*</span> sont obligatoires.</div>
+            <div class="form-sub">
+                Les champs marqués d’une <span class="required">*</span> sont obligatoires.<br>
+                Un numéro de demande vous sera attribué automatiquement :
+                <span class="ticket-code">sera généré à l’envoi</span>
+            </div>
 
             <div class="field">
                 <label>Nom</label>
@@ -908,12 +1092,12 @@
             <button class="primary-btn-form" type="submit">Envoyer la demande</button>
 
             <div class="back-link">
-                <a href="javascript:void(0)" onclick="showPage('choice')">← Retour au choix du type d’intervention</a>
+                <a href="javascript:void(0)" onclick="showView('choice')">← Retour au choix du type d’intervention</a>
             </div>
         </form>
 
-        <div class="map-wrapper">
-            <div class="map-card">
+        <div style="margin-top:20px;">
+            <div class="card">
                 <h3>Adresse pour l’intervention sur place</h3>
                 <p>
                     20 rue de l'Orme au Charron<br>
@@ -922,33 +1106,173 @@
                 <p style="font-size:0.8rem;color:var(--muted);">
                     L’adresse exacte vous sera reconfirmée par message après votre demande.
                 </p>
-                <a class="map-btn"
-                   href="https://www.google.com/maps/dir/?api=1&destination=20+Rue+de+l%27Orme+au+Charron,+77340+Pontault-Combault"
-                   target="_blank" rel="noopener noreferrer">
+                <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=20+Rue+de+l%27Orme+au+Charron,+77340+Pontault-Combault"
+                    target="_blank" rel="noopener noreferrer"
+                    class="whatsapp-btn"
+                    style="background:linear-gradient(135deg,var(--glitch1),var(--glitch2));color:#020617;margin-top:4px;">
                     Ouvrir l’itinéraire dans Google Maps
                 </a>
             </div>
-            <div class="map-card">
-                <iframe
-                    class="map-iframe"
-                    loading="lazy"
-                    allowfullscreen
-                    referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.6605146103!2d2.608!3d48.802!2m3!1f0!2f0!3f0!3m2!1fr!2sfr!4v1700000000000!5m2!1fr!2sfr">
-                </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="about" class="view">
+    <div class="container">
+        <h2 class="section-title">À propos de Pontault Informatique</h2>
+        <p class="section-sub">
+            Un dépannage pensé pour être simple, accessible et adapté aux habitants de Pontault-Combault.
+        </p>
+
+        <div class="two-columns">
+            <div class="about-text">
+                <p>
+                    Pontault Informatique, c’est une activité de dépannage et d’assistance informatique locale,
+                    pensée pour les particuliers qui veulent un service clair, honnête et abordable.
+                </p>
+                <p>
+                    L’idée est simple : éviter les grandes enseignes impersonnelles, les mots compliqués, les
+                    devis flous, et proposer à la place une approche directe : un problème, une explication
+                    compréhensible, une solution, un prix annoncé à l’avance.
+                </p>
+                <p>
+                    Les interventions se font à domicile ou sur place, selon ce qui vous arrange le plus, avec
+                    des horaires adaptés aux journées de travail : soirées, mercredi après-midi et week-end.
+                </p>
+                <p>
+                    Chaque demande reçoit un numéro de ticket, ce qui permet de suivre plus facilement les
+                    échanges et l’avancement de votre dépannage.
+                </p>
+            </div>
+            <div>
+                <div class="card">
+                    <h3>Ce qui compte pour moi</h3>
+                    <ul>
+                        <li>Vous expliquer ce que je fais, sans jargon inutile</li>
+                        <li>Ne pas remplacer si on peut réparer ou optimiser</li>
+                        <li>Vous proposer les solutions les plus simples et efficaces</li>
+                        <li>Respecter vos données et votre confidentialité</li>
+                    </ul>
+                </div>
+                <div class="card" style="margin-top:14px;">
+                    <h3>Zone d’intervention</h3>
+                    <p>
+                        Pontault-Combault et alentours proches.<br>
+                        N’hésitez pas à préciser votre ville dans le formulaire : je vous dirai directement si
+                        c’est possible ou non.
+                    </p>
+                </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="view">
+    <div class="container">
+        <h2 class="section-title">Questions fréquentes</h2>
+        <p class="section-sub">
+            Quelques réponses rapides aux questions qu’on me pose souvent.
+        </p>
+
+        <div class="faq-item">
+            <h3>Combien coûte une intervention ?</h3>
+            <p>
+                Les prix dépendent du type de problème, mais pour vous donner une idée :
+                mises à jour à partir de 5€, optimisation / nettoyage autour de 10€, suppression de virus
+                autour de 12,50€. Le prix exact est toujours confirmé avant de commencer.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Quels types de problèmes prenez-vous en charge ?</h3>
+            <p>
+                PC lent, bugs, erreurs Windows, virus, pubs, nettoyage, mises à jour, installation de logiciels,
+                aide à la prise en main, et plus. Si vous avez un doute, décrivez simplement votre problème
+                dans le formulaire.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Comment se passe une demande d’intervention ?</h3>
+            <p>
+                Vous remplissez le formulaire (à domicile ou sur place), vous choisissez un créneau, et
+                vous recevez un numéro de ticket. Je vous recontacte ensuite pour confirmer le rendez-vous
+                et, si besoin, vous poser quelques questions supplémentaires.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Est-ce que vous gardez mon ordinateur ?</h3>
+            <p>
+                La plupart du temps, l’intervention se fait directement pendant le créneau choisi. Si le
+                problème est plus long à régler, on discute ensemble de la meilleure solution pour vous
+                (sur place, à domicile, ou en gardant la machine temporairement).
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Et si je ne m’y connais pas du tout en informatique ?</h3>
+            <p>
+                Ce n’est pas un problème, au contraire : vous expliquez simplement ce que vous voyez,
+                ce qui ne marche pas, et je traduis ça en termes techniques pour trouver la solution.
+                L’objectif est justement de vous simplifier la vie.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- AVIS CLIENTS -->
+<section id="reviews" class="view">
+    <div class="container">
+        <h2 class="section-title">Avis clients</h2>
+        <p class="section-sub">
+            Quelques exemples d’avis que pourraient laisser les personnes que j’aide.
+        </p>
+
+        <div class="services-grid">
+            <div class="review-card">
+                <div class="review-name">Céline, Pontault-Combault</div>
+                <div class="review-stars">★★★★★</div>
+                <p>
+                    Mon PC était devenu inutilisable, plein de pubs et de lenteurs. Tout a été nettoyé,
+                    expliqué, et depuis il fonctionne beaucoup mieux. Très clair et patient.
+                </p>
+                <div class="review-meta">Intervention : optimisation + suppression de virus</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-name">Karim, Roissy-en-Brie</div>
+                <div class="review-stars">★★★★★</div>
+                <p>
+                    Je ne comprenais rien aux mises à jour, tout plantait. Mises à jour faites, pilotes
+                    installés, et explications simples. Le prix était annoncé dès le début.
+                </p>
+                <div class="review-meta">Intervention : mises à jour + vérifications</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-name">Marie, Pontault-Combault</div>
+                <div class="review-stars">★★★★★</div>
+                <p>
+                    Très pratique de pouvoir choisir un créneau en soirée. On voit que c’est pensé pour les
+                    gens qui travaillent la journée. Je recommande.
+                </p>
+                <div class="review-meta">Intervention : optimisation et conseils</div>
+            </div>
+        </div>
+
+        <p class="section-sub" style="margin-top:1.5em;">
+            Vous pourrez bientôt laisser vos avis directement ici, pour aider d’autres personnes à se faire une idée.
+        </p>
     </div>
 </section>
 
 <footer>
     © Pontault Informatique – Dépannage & assistance. Tous droits réservés.
 </footer>
-
-<script>
-    // Afficher la page d’accueil au chargement
-    showPage('home');
-</script>
 
 </body>
 </html>
